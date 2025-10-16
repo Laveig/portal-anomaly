@@ -651,7 +651,16 @@ function findIndicator(hitEntity) { // A small function for indicators
 
 ghosting <- true
 function setGhosting(epic_value) {   // Toggles the ghost arm (as well as the lag it produces)
+
     ghosting = epic_value
-    printl("\n\nToggled ghost arm.\nThat changes the ghost arm's behavior, as well as the lag it produces.\n\n")
+    
+    if (ghosting == true) {
+        printl("\n\nEnabled the ghost arm.\nNotice the lag. Yeah, that's all by this arm, that does a lot of things every 0.09 seconds.\n\n")
+        EntFire("arm_64", "Enable")
+    }
+    if (ghosting == false) {
+        printl("\n\nDisabled the ghost arm.\nThis is a small optimisation that prevents lag and improves fps.\n\n")
+        EntFire("arm_64", "Disable")
+    }
 }
 

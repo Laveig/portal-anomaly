@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "10463"
-	"mapversion" "1"
+	"mapversion" "3"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -22,8 +22,8 @@ viewsettings
 		v0
 		{
 			"3d" "1"
-			"position" "(-876.863 -140.791 -0.93685)"
-			"angle" "[0 10.17 0]"
+			"position" "(253.125 -69.6006 111.805)"
+			"angle" "[23.165 140.215 0]"
 		}
 		v1
 		{
@@ -48,7 +48,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "1"
+	"mapversion" "3"
 	"classname" "worldspawn"
 	"skyname" "sky_black_nofog"
 	"maxpropscreenwidth" "-1"
