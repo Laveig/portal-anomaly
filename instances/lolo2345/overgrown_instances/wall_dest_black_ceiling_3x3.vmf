@@ -1,0 +1,228 @@
+versioninfo
+{
+	"editorversion" "400"
+	"editorbuild" "10289"
+	"mapversion" "1"
+	"formatversion" "100"
+	"prefab" "0"
+}
+visgroups
+{
+}
+viewsettings
+{
+	"bSnapToGrid" "1"
+	"bShowGrid" "1"
+	"bShowLogicalGrid" "1"
+	"nGridSpacing" "64"
+	"bShow3DGrid" "0"
+	"nInstanceVisibility" "2"
+	views
+	{
+		v0
+		{
+			"3d" "1"
+			"position" "(366.317 39.7107 -457.005)"
+			"angle" "[-47.2002 179.2 0]"
+		}
+		v1
+		{
+			"3d" "0"
+			"position" "(123.899 137.911 65536)"
+			"zoom" "1.28995"
+		}
+		v2
+		{
+			"3d" "0"
+			"position" "(65536 10.0823 0.347954)"
+			"zoom" "1.54793"
+		}
+		v3
+		{
+			"3d" "0"
+			"position" "(80.0167 -65536 -19.2524)"
+			"zoom" "3.2098"
+		}
+	}
+}
+world
+{
+	"id" "1"
+	"mapversion" "1"
+	"classname" "worldspawn"
+	"skyname" "sky_black_nofog"
+	"maxpropscreenwidth" "-1"
+	"detailvbsp" "detail.vbsp"
+	"detailmaterial" "detail/detailsprites"
+	"maxblobcount" "250"
+	"maxprojectedtextures" "8"
+}
+entity
+{
+	"id" "2"
+	"classname" "prop_static"
+	"angles" "0 90 88"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"model" "models/props_destruction/wall_dest_128x128_03_skins.mdl"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"scale" "1 1 1"
+	"skin" "5"
+	"solid" "6"
+	"uniformscale" "1"
+	"origin" "-192 0 0"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 29500]"
+	}
+}
+entity
+{
+	"id" "6"
+	"classname" "prop_static"
+	"angles" "0 270 88"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"model" "models/props_destruction/wall_dest_128x128_03_skins.mdl"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"scale" "1 1 1"
+	"skin" "5"
+	"solid" "6"
+	"uniformscale" "1"
+	"origin" "-64 -128 0"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 29500]"
+	}
+}
+entity
+{
+	"id" "10"
+	"classname" "prop_static"
+	"angles" "-89.9999 89.5 0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"model" "models/props_destruction/wall_dest_256x128_02.mdl"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"scale" "1 1 1"
+	"skin" "0"
+	"solid" "6"
+	"uniformscale" "1"
+	"origin" "4.12737 193.292 6.46022"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 29500]"
+	}
+}
+entity
+{
+	"id" "14"
+	"classname" "prop_static"
+	"angles" "0 0 88"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"model" "models/props_destruction/wall_dest_128x128_03_skins.mdl"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"scale" "1 1 1"
+	"skin" "5"
+	"solid" "6"
+	"uniformscale" "1"
+	"origin" "-128 192 0"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 29500]"
+	}
+}
+entity
+{
+	"id" "18"
+	"classname" "prop_static"
+	"angles" "-83.4999 270 -0.999986"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"model" "models/props_destruction/wall_dest_256x128_02.mdl"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"scale" "1 1 1"
+	"skin" "0"
+	"solid" "6"
+	"uniformscale" "1"
+	"origin" "128 -192 3.23011"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 29500]"
+	}
+}
+entity
+{
+	"id" "122"
+	"classname" "prop_static"
+	"angles" "0 90 88"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"model" "models/props_destruction/wall_dest_128x128_02_skins.mdl"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"scale" "1 1 1"
+	"skin" "0"
+	"solid" "6"
+	"uniformscale" "1"
+	"origin" "0 -128 0"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 29500]"
+	}
+}
+entity
+{
+	"id" "141"
+	"classname" "prop_static"
+	"angles" "-8.5 90 92"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"model" "models/props_destruction/wall_dest_128x128_02_skins.mdl"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"scale" "1 1 1"
+	"skin" "0"
+	"solid" "6"
+	"uniformscale" "1"
+	"origin" "0 128 0"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 29500]"
+	}
+}
+cameras
+{
+	"activecamera" "-1"
+}
+cordons
+{
+	"active" "0"
+}
