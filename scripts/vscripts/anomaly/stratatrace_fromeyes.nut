@@ -14,14 +14,13 @@ macros["GetEyeEndpos"] <- function(player, distance) {
     return player.EyePosition() + player.EyeForwardVector() * distance
 }
 StrataTracePlus["FromEyes"]["Bbox"] <- function(distance, player, ignoreEntities = null, settings = TracePlus.defaultSettings) {
-    // Calculate the start and end positions of the trace
+    // Calculates the start and end positions of the trace
     local startPos = player.EyePosition()
     local endPos = macros.GetEyeEndpos(player, distance)
 
     ignoreEntities = TracePlus.Settings.UpdateIgnoreEntities(ignoreEntities, player)
 
-    // Perform the bboxcast trace and return the trace result
-    return TracePlus.Bbox(startPos, endPos, ignoreEntities, settings) 
+    // Performs the strata trace and return the trace result
 	return TraceLineEx(startPos, endPos, int, null, int)
 }
 

@@ -1,9 +1,15 @@
- // Portal: Anomaly vscript file
-// Made by Laveig
-printl("presentation.nut - Executed")
-// This one is exclusevily for showcasing the features.
 
-DoIncludeScript("pcapture-lib-4.0beta/PCapture-Lib", getroottable()) //pcapture (temp)
+/*
+    Portal: Anomaly vscript file
+    Made by Laveig
+
+    This one is exclusevily for showcasing the panels.
+    Basically 
+*/
+
+printl("presentation.nut - Executed")
+
+DoIncludeScript("pcapture-lib-4.0beta/PCapture-Lib", getroottable()) //pcapture (give me a reason to use strata's trace over pcap one)
 
 /*
     TODO (high-prioity todos are marked with *):
@@ -24,7 +30,7 @@ DoIncludeScript("pcapture-lib-4.0beta/PCapture-Lib", getroottable()) //pcapture 
 */
 armModeType <- 0
 function callPrearmFunctions() {
-    if (armMode == true) {
+    if (armMode == true && ghosting == true) {
 
         if (armModeType == 0) {
             // Arm mode type: classic
@@ -131,9 +137,10 @@ function toggleArmModesBack() {
         }
     }
 }
+
 armMode <- false    // literally
 function toggleArming() {
-    armMode = !armMode  // Toggling the mod everytime the functio is called
+    armMode = !armMode  // Toggles the mode everytime the function is called
 
     if (armMode == true) {
         printl("Arm modes active")
@@ -275,6 +282,8 @@ function Predeployer() {   // Finds the specific arm and teleports the ghost arm
     return hitEntityName    // check deployTheArm()
 }
 
+
+
 distance <- 64  // initial distance
 
 function deployAdjust() {     // every time this function is called,
@@ -356,7 +365,7 @@ function retrieveArm64(callrelay) {
 function Predeployer2() {
     
     if (arm64 == null) {
-        printl("arm_64 not found!") // in which case you should kill the mapper, it's him who forgor to add it;
+        printl("arm_64 not found!") // in which case I will fire the mapper, it's him who forgor to add the instance.
         retrieveArm64(true)         // teleports the arm out of bounds
         return
     }
@@ -641,8 +650,8 @@ function findIndicator(hitEntity) { // A small function for indicators
 }
 
 ghosting <- true
-function toggleGhosting(epic_value = false) {   // Toggles the ghost arm (as well as the lag it produces)
-    ghosting = !epic_value
+function setGhosting(epic_value) {   // Toggles the ghost arm (as well as the lag it produces)
+    ghosting = epic_value
     printl("\n\nToggled ghost arm.\nThat changes the ghost arm's behavior, as well as the lag it produces.\n\n")
 }
 
