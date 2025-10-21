@@ -240,6 +240,7 @@ ignoreEntities2 <- TracePlus.Settings.new({     // Another setting, makes the tr
 })                                              // Note that this setting is PCAPTURE ONLY and WILL NOT WORK ON STRATA TRACES (that's why strata trace sucks)
 
 hitEntityName <- ""     // Yeah this variable is used globally
+lastArm <- "arm_tp2"    // Simular to hitEntityName, but it saves the name of the already deployed arm
 
 function Predeployer() {   // Finds the specific arm and teleports the ghost arm to it
 
@@ -250,7 +251,7 @@ function Predeployer() {   // Finds the specific arm and teleports the ghost arm
     }
 
     local player = GetPlayerEx()
-    local traceResult = TracePlus.FromEyes.Bbox(3000, player, ignoreEntities, ignoreEntities2) // <--- THE ACTUAL TRACE (repeats every 0.05 seconds basically; laggy af)
+    local traceResult = TracePlus.FromEyes.Bbox(3000, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
     
 
     if (traceResult.DidHit() == false || traceResult.DidHitWorld() == true) { // If we hit worldspawn or didn't hit anything (in 3000 units :skull:)
@@ -324,16 +325,22 @@ function deployDeadjust() {   // every time this function is called,
     printl("Distance: " + distance)
 }
 
-function deployTheArm(deployTime = 7) {  // deploy time can be set up manually
+function deployTheArm(deployTime = 1) {
     if (armMode == true && armModeType == 0) {
         local hitEntityName = Predeployer()
         if (distance == 192) {
             distance = 224  // THERE IS NO 192 ANIMATION WTF
         }
+
         EntFire(hitEntityName, "SetAnimation", distance + "_out_straight")
-        EntFire(hitEntityName, "SetAnimation", distance + "_in_straight", deployTime)
+
+        if (lastArm != hitEntityName) { EntFire(lastArm, "SetAnimation", distance + "_in_straight", deployTime) }
+
+        lastArm = hitEntityName // saving the last used arm should be after the exec
+
         if (distance == 224) {
             distance = 192  // so yeah I have to set it back everytime. it also looks ugly in game
+                            // it also breaks the adjuster lmao.
         }
         printl("Deploying the arm")
     }
@@ -417,19 +424,20 @@ function deployAngleBack() {   // I DONT EVEN NEED 'IF' LMFAO
     printl("Arm angled backwards")
 }
 
-function deployAngled(deployTime = 7) {  // deploy time can be set up manually
+function deployAngled(deployTime = 1) {  // deploy time was nesessary when panels had to close after some time, but when in 1x1 mode, it just a delay before closing tthe previous panel
     
     local hitEntityName = Predeployer2()
 
     if (arm_angled_front == true) {
         EntFire(hitEntityName, "setanimation", "90deg_out_cornerfront") 
-        EntFire(hitEntityName, "setanimation", "90deg_in_cornerfront", deployTime) 
+        EntFire(lastArm, "setanimation", "90deg_in_cornerfront", deployTime)
     }
     if (arm_angled_front == false) {
         EntFire(hitEntityName, "setanimation", "90deg_out_cornerback")
-        EntFire(hitEntityName, "setanimation", "90deg_in_cornerback", deployTime) 
+        EntFire(lastArm, "setanimation", "90deg_in_cornerback", deployTime) 
     }
-        printl("Deploying the arm")
+    lastArm = hitEntityName
+    printl("Deploying the arm")
 }
 
 
@@ -522,13 +530,13 @@ function cubeSucker() { // Opens the cubesucker.
     
     local neighbors = Find2x2Square(hitEntity)
 
-    if (hitEntityYaw == 0) {
+    if (hitEntityYaw < 90) {
         EntFire(hitEntityName, "setanimation", "90deg_out_cornerback")
         EntFire(neighbors[0].GetName(), "setanimation", "90deg_out_cornerfront")
         EntFire(neighbors[1].GetName(), "setanimation", "90deg_out_cornerback")
         EntFire(neighbors[2].GetName(), "setanimation", "90deg_out_cornerfront")
     }
-    if (hitEntityYaw == 180) {
+    if (hitEntityYaw > 90) {
         EntFire(hitEntityName, "setanimation", "90deg_out_cornerfront")
         EntFire(neighbors[0].GetName(), "setanimation", "90deg_out_cornerback")
         EntFire(neighbors[1].GetName(), "setanimation", "90deg_out_cornerfront")
@@ -539,7 +547,7 @@ function cubeSucker() { // Opens the cubesucker.
         printl(" === Cubesucker mode: in. Awaiting cube.")
 
         neighbors_globvar = neighbors
-        Entities.FindByName(null, "trigger_sucker").SetOrigin(Vector(hitEntity.GetOrigin().x, hitEntity.GetOrigin().y, hitEntity.GetOrigin().z - 120))
+        Entities.FindByName(null, "trigger_sucker").SetOrigin(  Vector(hitEntity.GetOrigin().x, hitEntity.GetOrigin().y, hitEntity.GetOrigin().z - 120) )
         return
     }
     if (hitEntityName.find("arm-ceiling") != null) {
