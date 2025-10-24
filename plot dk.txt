@@ -1,0 +1,118 @@
+////
+// PORTAL: ANOMALY
+////
+
+////
+// GENERAL PLOT
+////
+
+MC (Main Character) works at the Aperture Anomaly Investigation Department, where every single worker is a robot except him and his partner. Your job is to handle reports that robots have lower chances to handle. Even though that is less than 0.001% of reports, you still have a lot of chambers to investigate every hour every day. Unfortunately, MC lost all his memories, and now it's on TP (the player) what to do.
+
+This game will be more like an action-adventure, but it'll still remain pizzle-based, with more interactions. Instead of boldly solving puzzles and going through the only route possible, TP will be able to explore the place, return to previous maps, and do much more to make the game feel less linear and straightforward. Unfortunately, all these things will be limited drastically, since I have bigger open-world plans for PU.
+
+////
+// GAMEPLAY
+////
+
+// Intro
+Black fade out. Ambient music appears. Hanging Aperture sign appears. "This place is not what it used to be." Background changes, camera moves further away. "Endless testing, endless universes, and always the same result." Fade in, fade out. A video appears. "You are granted the experience of a climax." Camera moves towards its back - the video is playing inside a portal gun. "The result of progress. What everyone strives for. And how unexpectedly badly it all turns out in the end. Unavoidable revolution, unavoidable cycle that is being predicted yet cannot be foreseen." Fade in. Camera moves up, revealing the view on a huge forest. "This is not your past. It was just an illusion of security, an illusion of utopia." Camera teleports into the forest, revealing its beauty. "Those who lived in that world are already dead. An inevitable collapse that never even touched you." Fade in. In the darkness, a white figure appears. It is not moving. "Why do you need those terrible illusions, especially if they are not yours? Are you ready to let the present in?" Two buttons and a cursor appears: yes, yes. "Hmm. Was it your choice? Perhaps you'd like to continue feeding yourself with dreams of utopia. However, here..." Music stops, echo disappears, the figure disappears. "...is no utopia." Seconds of silence. "Your illusions are fading away."
+
+// Wakeup sequence
+A white dot appears, becoming bigger and bigger, until it fills the screen, and that's when the player wakes up. Camera imitates the sudden awakening, a fast breathing is heard. "Oh god. What in the world...?" Camera rotates, imitating the head turns. The room is copypasted from The Last Sunset, except the window shows some more Aperture (the lighting is the same). Suddenly, the tablet on the table on the left vibrates. The camera rotates to it. The arm takes the tablet, it turns on, and the player is left with the tablet. After some time, he finds the messenger app with a notification icon in the corner. Inside there are some chats. One of them has a new message from the user "[USER NAME]". The text says "wow, that's great! congratulations on your promotion!"; the previous message was sent from the main character the yesterday's evening - "they finally responded!!! I'm an lieutenant now!!!" Back to the new message - if the player responds right away, the text will be "huh?..", but if he'll read the chat for at least three seconds, the respond will be "thank you!". The player will be able to chat for a few minutes, giving the player the options between different dialogs, but when the chatting is over, he'll put the tablet into his pocket. The MC (main character from now on) will leave the bed and say "what is going on?... I don't remember any of this... Ok, ok, calm down. [1 second silence] I need to improvise. I hope... I hope I'll find the answers this way." The music begins to play. The player will go from room to room and watch the silhouettes appear. "Am I dreaming?.. No, this feels too real to be a dream..." On the kitchen, the cutscene appears again. The stomach rumbles, and he says "Alright, some basic stuff, finally... Why am I talking to myself? I don't remember talking to myself before..." Then the arm appear. The player can select between different dishes and fruites, each having different stats. The player takes the dish, places on the table and looks out the window. There is a wall. "Oh, what a nice view..." After eating, the hunger bar appears in the corner (indicating 96/100), MC places the plate into the small washing mashine (if there was a plate) and the player is free to move. After some time the message will appear "wanna meet? I'll show you the new version of the app | yk | the one I told you about yesterday" The player has no choice but to answer "yeah, I'm on my way!" "good to hear! | oh and please buy a cake! I completely missed you message yesterday" The player has no choice but to answer "alright". The task bar appears in the corner. It shows two tasks - meet with the stranger (mandatory), buy the cake (optional). Both require going outside. The front door is locked with a key, and you can't take the key if you're not in the uniform, and the uniform is in the shelf. Then the player can go outside.
+
+// Outside sequence
+The exterior is, well, some bts idk. The player sees some more illusions, but this time they are more transparent and less colourful. They all lead to a big glassy cube called "Aperture Human Shopping Center & Food Warehouse". The insides are filled with shops. The shopping center is held by huge rails (seen in chamber_fx), four on each side. The player comes inside, finds the confectionery and buys the cake. While leaving the shopping center, the MC says "alright, finally, something familiar." But after leaving, he says "But where should I go now?.." The player sees tons of catwalks above and below. "Wait, I have the 'maps' app, do I...", says the MC and opens up the tablet. The player navigates to the 'maps' app. The map shows up. There are three pins already: home, office, admin. Home is the apartment, office is the workplace, and admin is the administration post the MC is registered in. "Not that many options, huh... Well, office is the way then." The app builds the path to the office, and the player follows it, eventually taking a ride on the train.
+
+// Office & meeting
+The train stops at the station needed. The player sees a bunch of tall perpendiculars with windows, some of them being different than the others. The player walks into one of them. The reception looks quite cozy. TP (The player) goes through the metal arc. TP searches some kind of ticket mashine, or a receptionist, or like anything that a normal reception would have. But finds a woman instead. Turns out, this is the partner. "Oh, you brought the cake! Thank you so much, I completely missed your message!" The MC can respond with different options: "It's alright and doesn't matter now! So, what are we gonna do?" "Sorry, but I don't remember anything." The difference is massive - they lead to different endings. Since I'm describing the default route, the player proceeds with the first option. She responds "Celebrate our promotion, of course!" MC automatically responds "Wait wait wait, *our* promotion?" "Of course ours, not like robots can promote..." "But it's my promotion!", he responds. She looks at him with an absent-minded look, and then says "What is going on? Did something bad happen?" The player can respond with "No, why?" or "Yeah, sorry... My coffee machine died this morning" (optional: add a third dialog option "yes, I don't remember anything"). Anyway, I'm lazy, so imagine the end of the dialogue. So, they move into the office to celebrate the promotion. But, as soon as MC cuts the cake, a wild core appears. Turns out he is your boss. Seems like his emotions have been erased with time, so he just says: "Our department receives reports every second, but you are not doing your job. Such behaviour is unacceptable." "But we finally got the promotion! Can we just celebrate it for a moment? We'll be back in no time!" your partner responds. But the boss says "Celebrating is not an option. Please return to your shift. This is the last warning." Sadly, the celebration is postponed for later. Your partner says "Alright, let's go then." If the player follows her, she asks "Uhm, why are you following me?" MC responds "Uhm, I mean, aren't we supposed..." "Oh, yeah, alright, I didn't think about that", she responds. "About what?" "Well, selebrating in my closet? I thought that's what you gonna say" "Ah, yeah, yes, that's exactly what I was thinking about." You both go through offices until you enter a small room with a pc and some other electronics in. She cleans up the table enough for the cake to be placed. "Alright. Ugh. I forgot the speech." TP can answer "Is it really that necessary if you forgot it?"
+
+
+
+
+////
+// ENDINGS
+////
+
+// Fastest (any% moment)
+The player tells that he doesn't remember anything right away, they find the cure the second day, and MC gets his memories back. The Demiurge is bored, or very happy and displays the final time if the game is completed in less than [FIRST WR TIME]. Note that the first iteration of the ending is different because there may be players that will choose not to improvise and just tell her everything right away.
+
+// Default
+[Finish the plot first]
+
+// Singular
+The player decides to hide the problem from his partner and finds how to get the memories back himself. The Demiurge is impressed.
+
+// Imprisonment
+The player decides to do crimes instead of living normally. He gets jailed. The Demiurge is not surprised, and to make the player feel worse for his actions, returns the memories to MC to make him tell everything he feels about player. Come on, you ruined his life, he must be really angry.
+
+// Escapist
+The player decides to go to the surface instead of doing his job. The Demiurge tries to stop him, but he can't - his soul is "left to be underground until his job is done" (this line is found in a different ending, he doesn't say this here). On the surface MC finds new friends, but never gets his memories back.
+This ending is lore accurate, since in TTF and PU the 'scout' is actually this officer (scout in both TTF and PU helps the player on his way to the surface, since it is scout's job).
+By the way, this is the first time somebody actually escaped the facility for real.
+
+// Fourwalling (secret)
+To reach this ending, players will need to find a lot of secrets, solve some arg puzzles, decrypt the ciphers, and idk prob a lot of other things, so in the end they'll end up with a contact of a person named "archive", and the players will need to manually write some things to him idk. So in the end they'll get a file, and turns out this file is a reality controller or something.
+MC ends up finding the Demiurge by himself and asks some fourthwall-breaking questions, such as "Where's Gman?" ("His vision didn't reach us yet") or "What timeline is it?" ("Two decades after GLADOS's wake").
+
+////
+// ADDITIONAL GAMEPLAY
+////
+
+[Copy from the desktop txt file]
+The gameplay will not rotate around finding anomalies only. The plot already shows that there's a lot going on, because the Aperture is alive.
+So, the first addition is the hunger bar. It will lower after some time (very very slowly) or after certain events (like investigating a report; the bar will drop around 10-25%)
+The second addition is the sleep bar. It will lower every time the player is not sleeping. Basically, it displays MC's mental state. Since MC needs a lot of money, he can go overclock, at the cost of the sleep bar. And this bar is crucial when finding anomalies, because when it drops to less than 50%, hallucinations start to appear. If the bar drops to 0%, MC falls asleep just where he is, and if the place is public, he'll wake up in the hospital nearby, but if not, well, idk then, he may not wake up.
+
+////
+// FINDING ANOMALIES
+////
+
+Anomalies aren't some kind of magic or paranormal shit. Most of the times they are just dead test subjects that panels can't reach and cameras can't see. Or blood. Easy to notice and report, and the chamber still funcions after advanced cleaning. Or the chamber itself is so bad, it doesn't meet the standart, but somehow got approved.
+
+Basically, anomaly is anything that doesn't meet the standart.
+
+// Classes (types)
+
+So, there are different classes of anomalies.
+Classes A, B and C are minor anomalies. 99.9% of reports are one of these classes. They don't require deep thinking, so 99.9% of these reports are handled by robots. If robot fails there, the anomaly becomes major, or class M.
+There's also class N that is slightly different than class M (I have a certain feeling this class is important).
+Class G is the most troubling one, because it means the G-standart chamber didn't meet the requirements. Since it may not be an issue on the creator's side, both robot and a human are sent to investigate the chamber. Usually it takes several irl hours to find all the anomalies. Luckily, the anomaly indicator and some more utilities are given for free for this task.
+Class X is for X-standart chambers. If you see one, it's probably fake. Sometimes these are used between cops, or idk why else would I need this class.
+Class V is for overgrown chambers, since some panels may not be active, and class W is for underground / underground inspired chambers, since they don't have panels at all. These are the chambers MC is most likely to be sent into.
+Class Z is everything else, but if you see in in-game, this is developer's fault. Avoiding class Z is in our priority.
+
+// Standarts
+
+Just like classes, each test chamber has its own quality standart. It depends on the chamber's quality, but chamber designers usually aim for the highest standart possible, therefore the quality depends on the standart's requirements.
+From best to worst: G, S, A, B, C, D, E, F, N, X; where N consists of NV for overgrown, NW for underground, and NX for any other chamber that changed its quality after time. Sometimes (for example if an iconic chamber becomes overgrown) a special team investigates the chamber again, and then N could be replaced with an actual standart (for exaple NV -> AV).
+G-standart is the best quality chamber possible. Every single piece of it should follow the requirements perfectly. These chambers are insanely difficult to make, and so they become viral the second they are published, no matter the publisher. There are some groups that make only G-chambers, one in approx 7 months. 
+S standart has more freedom to requirements, and so if the chamber is extremely well made and a lot of test subjects like it, it's an S-standart chamber.
+A-standarts are just very good chambers. They still get attention, but if you're good at puzzlemaking, standart A is almost guaranteed after intense work.
+Standards B, C, D and E are just most of the chambers. They are good overall. Nothing much to say about it honestly.
+Standart F is for bad chambers, visually or gameplay-vise. 
+Standart X is for straight up impossible chambers, or chambers that don't exist. More in //Classes.
+
+////
+// TOOLS
+////
+
+1) Radio & your partner
+The first and main tool is the radio. You can communicate with your partner using it.
+Your partner sits in a separate room with the laptop connected to the chamber's local network, or in the obs room with the laptop connected to the pc inside. Your partner is able to raise and rotate the panels, turn the lights on / off, control different puzzle elements, and much more. This is also a way to communicate with the partner. There are many actions TP can do with the partner, and noting down the anomalies is one of them. Since TP can just write them down on a paper irl, this action will not limit any other. Yes, some actions limit other actions, for example you can raise only one panel at a time. There is a global limit, that reduces the payout by 5% every time the panel is raised or element is activated (by the partner).
+
+2) Anomaly conduit
+This thing connects to the chamber's local network. Every action lowers the payout by 10% except where noted. After connecting, it can do the following things:
+- total check, which checks every panel and every element for any failures;
+- advanced total check, which includes some additional checks (like raising every single panel) with the ai-check on cameras (all the total checks take a long time and lower the payout by 50%);
+- local check, that checks the surroundings once every 15 seconds for the failures and does not affect the payout;
+- singular check that indicates a random anomaly in 500 unit radius;
+- self-written check that finds three anomalies and tells the partner where they are and what are they (normally indicator just tells if there is any failure nearby).
+They payout is not lowered in G-standart, X-standart, overgrown and underground chambers. On the contrary, the conduit does not work underground and may not work in overgrown and X-standart chambers.
+In some scenarios the indicator will not show the anomaly, like if the anomaly is not connected to the network.
+The tool is still OP though, because it literally does your job - you just need to identify the anomaly.
+
+3) Tazer
+Upon firing, paralyses any unprotected electronic equipment. Can be recharged if the battery is present.
+There are multiple variations of it. The only legal one has a lot of restrictions. The illegal one doesn't have them, but good luck making or finding one. #crimeending
+
+4) 
