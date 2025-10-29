@@ -4,29 +4,46 @@
     Made by Laveig
 
     This one is exclusevily for showcasing the panels.
-    Basically 
+    Basically, 
 */
 
 printl("presentation.nut - Executed")
 
-DoIncludeScript("pcapture-lib-4.0beta/PCapture-Lib", getroottable()) //pcapture (give me a reason to use strata's trace over pcap one)
+DoIncludeScript("pcapture-lib-4.0beta/PCapture-Lib", getroottable()) //pcapture (give me a reason to use strata trace over pcap)
 
 /*
     TODO (high-prioity todos are marked with *):
-    - Add an option that disables the ghost arm with normal deployment being avaliable
-    - Add a limiter which limits the amount of arms deployed at a time
     - Add a check for panel's height (to avoid stucking in tight areas)
-    - Remove the solid type entfires in arms_open() cluster
-    - Make the cube saver deploy the exact cube saved
+    - Make the cube saver deploy the exact cube saved (hint: pcap hud)
     - Make the cube saver go through cubes when pressing arrow keys
-    -*Add a fourth arm mode type (faith panel)
     - Add a thing where shooting a turret with another turret explodes the turret being shot
 */
+
+//
+// Global vars (used everywhere in the code)
+//
+
+radio <- Entities.FindByName(null, "radio");    // Radio (shows whether the function is active);
+arm64 <- Entities.FindByName(null, "arm_64");   // The 'ghost' arm, that shows which panel gets activated;
+ignoreEntities <- [arm64, radio]                // For the trace, we need to ignore these entities.
+
+distance <- 64  // initial distance
+
+if (radio == null) {    // pcapture freaked out when the radio went missing lmao
+    ignoreEntities = [arm64]
+}
+
+ignoreEntities2 <- TracePlus.Settings.new({     // Another setting, makes the trace ignore classes.
+    ignoreClasses = ArrayEx("func_brush", "prop_button", "prop_floor_button", "trigger_multiple", "prop_physics", "prop_weighted_cube", "prop_static")
+})                                              // Note that this setting is PCAPTURE ONLY and WILL NOT WORK ON STRATA TRACES (that's why strata trace sucks)
+
+hitEntityName <- ""     // Yeah this variable is used globally
+lastArm <- "arm_tp2"    // Simular to hitEntityName, but it saves the name of the already deployed arm
  
 /*
     Functions below are called by player inputs.
 
-    Note that the cluster ends when another one of these comments appears
+    Note that the cluster ends when another one of these huge comments appear
 */
 armModeType <- 0
 function callPrearmFunctions() {
@@ -47,6 +64,10 @@ function callPrearmFunctions() {
             cubePresuck()
             return
         }
+        if (armModeType == 3) {
+            // Arm mode: faith
+            preDeployFaith()
+        }
     }
 }
 function callArmFunctions() {
@@ -62,6 +83,10 @@ function callArmFunctions() {
         }
         if (armModeType == 2) {
             cubeSucker()
+            return
+        }
+        if (armModeType == 3) {
+            deployFaith()
             return
         }
     }
@@ -103,8 +128,8 @@ function callDeadjArmFunctions() {
 }
 function toggleArmModesForw() {
     armModeType = armModeType + 1
-    if (armModeType > 2) {
-        armModeType = 2
+    if (armModeType > 3) {
+        armModeType = 3
     }
     printl(" === Appended the arm type to " + armModeType)
 
@@ -140,7 +165,7 @@ function toggleArmModesBack() {
 
 armMode <- false    // literally
 function toggleArming() {
-    armMode = !armMode  // Toggles the mode everytime the function is called
+    armMode = !armMode  // Toggles modes everytime the function is called
 
     if (armMode == true) {
         printl("Arm modes active")
@@ -226,22 +251,6 @@ function arms_close3() {
     The distance is controllable.
 */
 
-// Global vars (used everywhere in the code)
-radio <- Entities.FindByName(null, "radio");    // Radio (shows whether the function is active);
-arm64 <- Entities.FindByName(null, "arm_64");   // The 'ghost' arm, that shows which panel gets activated;
-ignoreEntities <- [arm64, radio]                // For the trace, we need to ignore these entities.
-
-if (radio == null) {    // pcapture freaked out when the radio went missing lmao
-    ignoreEntities = [arm64]
-}
-
-ignoreEntities2 <- TracePlus.Settings.new({     // Another setting, makes the trace ignore classes.
-    ignoreClasses = ArrayEx("func_brush", "prop_button", "prop_floor_button", "trigger_multiple", "prop_physics", "prop_weighted_cube", "prop_static")
-})                                              // Note that this setting is PCAPTURE ONLY and WILL NOT WORK ON STRATA TRACES (that's why strata trace sucks)
-
-hitEntityName <- ""     // Yeah this variable is used globally
-lastArm <- "arm_tp2"    // Simular to hitEntityName, but it saves the name of the already deployed arm
-
 function Predeployer() {   // Finds the specific arm and teleports the ghost arm to it
 
     if (arm64 == null) {
@@ -278,14 +287,10 @@ function Predeployer() {   // Finds the specific arm and teleports the ghost arm
 
     print("Teleported arm_64 to " + hitEntityName + ";")
     print(" Pos: " + armOrigin + ";")
-    print(" Angles: " + armAngles + ".")
+    printl(" Angles: " + armAngles + ".")
 
     return hitEntityName    // check deployTheArm()
 }
-
-
-
-distance <- 64  // initial distance
 
 function deployAdjust() {     // every time this function is called,
     distance = distance + 64  // it increases the distance by 64
@@ -644,6 +649,111 @@ function cubeSucked(cube) {
     EntFire(neighbors_globvar[2].GetName(), "setanimation", "90deg_in_cornerfront")
 }
 
+
+/*
+    Functions below are for the fourth arm mode type.
+
+    They create a target and a catapult beneath the player,
+    but only if there is a panel.
+    The panel basically acts as a faith plate.
+
+    Since we can already move downwards,
+    this mode lets the player move upwards.
+*/
+
+function preDeployFaith() { // Purely visual. Absolutely useless.
+
+    local launchDir = GetPlayerEx().EyeAngles().x + " " + GetPlayerEx().EyeAngles().y + " " +  GetPlayerEx().EyeAngles().z
+    printl("Looking dir:" + launchDir)
+
+}
+
+function deployFaith() {
+
+    local playerPos = player.GetOrigin()
+    local arm_faith = Entities.FindByClassnameWithin(null, "prop_dynamic", playerPos, 50)
+    if (arm_faith == null) return    // NOT FUN
+
+    EntFire(arm_faith.GetName(), "setanimation", "64_in_straight")
+    printl("Faith arm: " + arm_faith.GetName())
+
+    local catapult = TeleportCatapult()
+    EntFireByHandle(catapult, "Enable")
+    EntFireByHandle(catapult, "Disable", "", 1)
+
+}
+
+launch_distance <- "600"  // lower value = less fun
+function TeleportCatapult() {   // teleports the catapult to the player
+
+    local player = Entities.FindByClassname(null, "player")
+    if (player == null || !player.IsValid())
+    {
+        printl("Player not found wtf")
+        return null
+    }
+
+    local playerPos = player.GetOrigin()
+    local catapult = Entities.FindByName(null, "panel_catapult")
+
+    local launchDir = GetPlayerEx().EyeAngles().x + " " + GetPlayerEx().EyeAngles().y + " " +  GetPlayerEx().EyeAngles().z
+    catapult.__KeyValueFromString("playerSpeed", launch_distance) // I really don't want to change anything in hammer...
+    catapult.__KeyValueFromString("launchdirection", launchDir)
+
+    catapult.SetOrigin( Vector(playerPos.x, playerPos.y, playerPos.z) )
+
+    return catapult
+}
+
+function CreateCatapultAtPlayer() { // Creates a catapult at the player position. OBSOLETE
+
+    local player = Entities.FindByClassname(null, "player")
+    if (player == null || !player.IsValid())
+    {
+        printl("Player not found wtf")
+        return null
+    }
+
+    // The target is being teleported to hitpos in the function above
+    local catapultTarget = Entities.FindByName(null, "catapult_target")
+    if (catapultTarget == null || !catapultTarget.IsValid())
+    {
+        printl("CATAPULT TARGET IS MISSING")
+        return null
+    }
+    
+    local playerPos = player.GetOrigin()
+
+    // Now we create the damn catapult
+    local catapult = Entities.CreateByClassname("trigger_catapult")
+    if (catapult == null)
+    {   // in rare case if P2CE moment appears
+        printl("UNABLE TO CREATE A CATAPULT")
+        return null
+    }
+    
+    catapult.SetOrigin(playerPos + Vector(0, 0, 50))    // player's origin
+    catapult.SetSize(Vector(-100, -100, 0), Vector(100, 100, 100))  // 200 units wide (not like if this matters but anyways)
+
+    catapult.__KeyValueFromString("target", "catapult_target")
+    catapult.__KeyValueFromString("playerSpeed", "1200") 
+    catapult.__KeyValueFromString("physicsSpeed", "0")  // easy way to prevent the catapult from colliding with phys objects
+    catapult.__KeyValueFromString("directionEntity", "catapult_target")
+    catapult.__KeyValueFromString("launchTarget", "catapult_target")
+    catapult.__KeyValueFromString("Enabled", "1")   // just in case
+
+    EntFireByHandle(catapult, "Enable", "", 0.1, null, null)    // PLEASE WORK U DAMMIT
+
+    
+                                                                // alright seems like we can't create triggers at runtime. 
+                                                                // that's sad and ugly.
+
+    
+    printl("Catapult successfully created!\nEven though it is not supported. Expect issues.")
+    return catapult
+}
+
+
 /*
     Other functions
 */
@@ -658,9 +768,7 @@ function findIndicator(hitEntity) { // A small function for indicators
 }
 
 ghosting <- true
-function setGhosting(epic_value) {   // Toggles the ghost arm (as well as the lag it produces)
-
-    ghosting = epic_value
+function setGhosting(ghosting) {   // Toggles the ghost arm (as well as the lag it produces)
     
     if (ghosting == true) {
         printl("\n\nEnabled the ghost arm.\nNotice the lag. Yeah, that's all by this arm, that does a lot of things every 0.09 seconds.\n\n")

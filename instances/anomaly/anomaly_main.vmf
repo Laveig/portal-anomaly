@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "10463"
-	"mapversion" "4"
+	"mapversion" "5"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -22,25 +22,25 @@ viewsettings
 		v0
 		{
 			"3d" "1"
-			"position" "(313.586 -839.936 40.2543)"
-			"angle" "[8.07507 111.084 0]"
+			"position" "(-807.683 160.347 -62.4846)"
+			"angle" "[0.165068 2.50927 0]"
 		}
 		v1
 		{
 			"3d" "0"
-			"position" "(337.597 191.883 -1728)"
+			"position" "(337.597 191.883 0)"
 			"zoom" "0.148684"
 		}
 		v2
 		{
 			"3d" "0"
-			"position" "(65503.3 197.367 -905.057)"
+			"position" "(0 197.367 -905.057)"
 			"zoom" "0.173614"
 		}
 		v3
 		{
 			"3d" "0"
-			"position" "(-638.696 224 -3.38)"
+			"position" "(-638.696 0 -3.38)"
 			"zoom" "0.432002"
 		}
 	}
@@ -48,7 +48,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "4"
+	"mapversion" "5"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -1575,6 +1575,165 @@ world
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
+	}
+}
+entity
+{
+	"id" "210"
+	"classname" "trigger_catapult"
+	"AbsoluteVelocityCheck" "0"
+	"airctrlsupressiontime" "-1.0"
+	"applyangularimpulse" "0"
+	"DirectionSuppressAirControl" "0"
+	"entryangletolerance" "0.0"
+	"exactvelocitychoicetype" "0"
+	"launchdirection" "-90 0 0"
+	"lowerthreshold" "0.15"
+	"onlyvelocitycheck" "0"
+	"origin" "61.8 56.87 -43.11"
+	"physicsspeed" "0"
+	"playerspeed" "400"
+	"solid" "6"
+	"spawnflags" "1"
+	"StartDisabled" "1"
+	"targetname" "panel_catapult"
+	"upperthreshold" "0.30"
+	"useexactvelocity" "0"
+	"usethresholdcheck" "0"
+	connections
+	{
+		"OnStartTouch" "@vscript_anomalytestRunScriptCodeonTouchTrigger()0-1"
+	}
+	solid
+	{
+		"id" "211"
+		side
+		{
+			"id" "162"
+			"plane" "(69.7945 50.1843 -51.1099) (53.7945 50.1843 -51.1099) (53.7945 50.1843 -35.1099)"
+			point_data
+			{
+				"numpts" "4"
+				"point" "0 69.7945 50.1843 -51.1099"
+				"point" "1 53.7945 50.1843 -51.1099"
+				"point" "2 53.7945 50.1843 -35.1099"
+				"point" "3 69.7945 50.1843 -35.1099"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 -16.678] 0.25"
+			"vaxis" "[0 0 -1 47.5604] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "161"
+			"plane" "(69.7945 63.5573 -35.1099) (53.7945 63.5573 -35.1099) (53.7945 63.5573 -51.1099)"
+			point_data
+			{
+				"numpts" "4"
+				"point" "0 69.7945 63.5573 -35.1099"
+				"point" "1 53.7945 63.5573 -35.1099"
+				"point" "2 53.7945 63.5573 -51.1099"
+				"point" "3 69.7945 63.5573 -51.1099"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 -16.678] 0.25"
+			"vaxis" "[0 0 -1 47.5604] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "160"
+			"plane" "(69.7945 63.5573 -51.1099) (69.7945 50.1843 -51.1099) (69.7945 50.1843 -35.1099)"
+			point_data
+			{
+				"numpts" "4"
+				"point" "0 69.7945 63.5573 -51.1099"
+				"point" "1 69.7945 50.1843 -51.1099"
+				"point" "2 69.7945 50.1843 -35.1099"
+				"point" "3 69.7945 63.5573 -35.1099"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[0 1 0 -62.2305] 0.25"
+			"vaxis" "[0 0 -1 47.5604] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "159"
+			"plane" "(53.7945 63.5573 -35.1099) (53.7945 50.1843 -35.1099) (53.7945 50.1843 -51.1099)"
+			point_data
+			{
+				"numpts" "4"
+				"point" "0 53.7945 63.5573 -35.1099"
+				"point" "1 53.7945 50.1843 -35.1099"
+				"point" "2 53.7945 50.1843 -51.1099"
+				"point" "3 53.7945 63.5573 -51.1099"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[0 1 0 -62.2305] 0.25"
+			"vaxis" "[0 0 -1 47.5604] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "158"
+			"plane" "(53.7945 50.1843 -51.1099) (69.7945 50.1843 -51.1099) (69.7945 63.5573 -51.1099)"
+			point_data
+			{
+				"numpts" "4"
+				"point" "0 53.7945 50.1843 -51.1099"
+				"point" "1 69.7945 50.1843 -51.1099"
+				"point" "2 69.7945 63.5573 -51.1099"
+				"point" "3 53.7945 63.5573 -51.1099"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 -16.678] 0.25"
+			"vaxis" "[0 -1 0 62.2305] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "157"
+			"plane" "(53.7945 63.5573 -35.1099) (69.7945 63.5573 -35.1099) (69.7945 50.1843 -35.1099)"
+			point_data
+			{
+				"numpts" "4"
+				"point" "0 53.7945 63.5573 -35.1099"
+				"point" "1 69.7945 63.5573 -35.1099"
+				"point" "2 69.7945 50.1843 -35.1099"
+				"point" "3 53.7945 50.1843 -35.1099"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 -16.678] 0.25"
+			"vaxis" "[0 -1 0 62.2305] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 500]"
 	}
 }
 entity
