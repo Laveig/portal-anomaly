@@ -290,8 +290,8 @@ function Predeployer() {   // Finds the specific arm and teleports the ghost arm
     arm64.SetAngles(armAngles.x, armAngles.y, armAngles.z); // and set the angles! (splitting xyz cuz vectors dont work for some reason)
 
     print("Teleported arm_64 to " + hitEntityName + ";")
-    print(" Pos: " + armOrigin + ";")
-    printl(" Angles: " + armAngles + ".")
+    print(" Pos: " + vectorToString(armOrigin) + ";")
+    printl(" Angles: " + vectorToString(armAngles) + ".")
 
     return hitEntityName    // check deployTheArm()
 }
@@ -416,8 +416,8 @@ function Predeployer2() {
     arm64.SetAngles(armAngles.x, armAngles.y, armAngles.z); 
 
     print("Teleported arm_64 to " + hitEntityName + ";")
-    print(" Pos: " + armOrigin + ";")
-    print(" Angles: " + armAngles + ".")
+    print(" Pos: " + vectorToString(armOrigin) + ";")
+    printl(" Angles: " + vectorToString(armAngles) + ".")
 
     return hitEntityName    // check deployAngled()
 }
@@ -460,7 +460,7 @@ function deployAngled(deployTime = 1) {  // deploy time was nesessary when panel
     to retreive it later on.
 
     Now the solution is not the best,
-    but it's better than building 7 traces every 0.05 seconds anyway.
+    but it's better than building 7 traces every 0.09 seconds anyway.
 
     It still may be laggy af.
 */
@@ -562,6 +562,7 @@ function cubeSucker() { // Opens the cubesucker.
     printl(" === Attempt to open the cubesucker.")
 
     local traceResult = TracePlus.FromEyes.Bbox(9999, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
+    local hitEntity = traceResult.GetEntity()
 
     if (!traceResult.DidHit()) { // if we didn't hit anything (in 9999 units :skull:)
         printl("didn't hit anything")
@@ -574,7 +575,6 @@ function cubeSucker() { // Opens the cubesucker.
         return
     }
 
-    local hitEntity = traceResult.GetEntity()
     local hitEntityPrefix = hitEntity.GetNamePrefix()
     if (hitEntityPrefix != "arm-") {
         printl("not an arm (" + hitEntityName + ")")
@@ -582,9 +582,15 @@ function cubeSucker() { // Opens the cubesucker.
         return
     }
 
-    local hitEntityYaw = hitEntity.GetAngles().y
     local hitEntityName = hitEntity.GetName()
     hitEntityName_globvar = hitEntityName
+
+    if (hitEntityName.find("arm-wall") != null) {
+        printl("Tried placing cube sucker on the wall!\nIt should be placed anywhere BUT on walls!")
+        return
+    }
+
+    local hitEntityYaw = hitEntity.GetAngles().y
     
     local neighbors = Find2x2Square(hitEntity)
     neighbors_globvar = neighbors
@@ -660,6 +666,7 @@ function cubeSucker() { // Opens the cubesucker.
 function cubePresuck() {    // teleports the 'ghost' arms (some throw-catchers are missing for optimisation)
 
     local traceResult = TracePlus.FromEyes.Bbox(9999, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
+    local hitEntity = traceResult.GetEntity()
 
     if (!traceResult.DidHit()) { // if we didn't hit anything (in 9999 units :skull:)
         printl("didn't hit anything")
@@ -671,11 +678,20 @@ function cubePresuck() {    // teleports the 'ghost' arms (some throw-catchers a
         retrieveArm64(true)
         return
     }
+    local hitEntityPrefix = hitEntity.GetNamePrefix()
+    if (hitEntityPrefix != "arm-") {
+        printl("not an arm (" + hitEntityName + ")")
+        retrieveArm64(true)
+        return
+    }
 
-    local hitEntity = traceResult.GetEntity()
-    local hitEntityAngles = hitEntity.GetAngles()
+    if (hitEntity.GetName().find("arm-wall") != null) {
+        printl("Tried placing cube sucker on the wall!\nIt should be placed anywhere BUT on walls!")
+        return
+    }
 
     local neighbors = Find2x2Square(hitEntity)
+    local hitEntityAngles = hitEntity.GetAngles()
 
     arm64.SetOrigin(hitEntity.GetOrigin())
     arm64.SetAngles(hitEntityAngles.x, hitEntityAngles.y, hitEntityAngles.z)
@@ -749,16 +765,16 @@ function deployFaith() {
     local playerPos = player.GetOrigin()
     local arm_faith = Entities.FindByClassnameWithin(null, "prop_dynamic", playerPos, 50)
     local arm_faith_name = arm_faith.GetName()
-    printl("Faith arm: " + arm_faith_name)
-    printl( arm_faith_name.find("arm-") ) // debug
     if ( arm_faith_name.find("arm-") == null ) return
+
+    printl("Launching player.")
+    printl("Faith arm: " + arm_faith_name)
 
     EntFire(arm_faith_name, "setanimation", "64_in_straight")
 
     local catapult = TeleportCatapult()
     EntFireByHandle(catapult, "Enable")
     EntFireByHandle(catapult, "Disable", "", 1)
-
 }
 
 launch_distance <- "600"  // lower value = less fun
