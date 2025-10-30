@@ -73,7 +73,7 @@ Basically, anomaly is anything that doesn't meet the standart.
 
 // Classes (types)
 
-So, there are different classes of anomalies.
+So, there are different classes of reports.
 Classes A, B and C are minor anomalies. 99.9% of reports are one of these classes. They don't require deep thinking, so 99.9% of these reports are handled by robots. If robot fails there, the anomaly becomes major, or class M.
 There's also class N that is slightly different than class M (I have a certain feeling this class is important).
 Class G is the most troubling one, because it means the G-standart chamber didn't meet the requirements. Since it may not be an issue on the creator's side, both robot and a human are sent to investigate the chamber. Usually it takes several irl hours to find all the anomalies. Luckily, the anomaly indicator and some more utilities are given for free for this task.

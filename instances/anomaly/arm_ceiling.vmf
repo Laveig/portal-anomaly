@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "8"
+	"mapversion" "9"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "8"
+	"mapversion" "9"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -103,7 +103,7 @@ entity
 	"id" "3"
 	"classname" "prop_dynamic"
 	"AllowSilentDissolve" "1"
-	"angles" "0 0 0"
+	"angles" "0 180 180"
 	"animateeveryframe" "0"
 	"body" "0"
 	"disablebonefollowers" "0"
@@ -135,12 +135,12 @@ entity
 	"spawnflags" "0"
 	"startdisabled" "0"
 	"suppressanimsounds" "0"
-	"targetname" "arm-floor"
+	"targetname" "arm-ceiling"
 	"updatechildren" "0"
-	"origin" "0 -32 64"
+	"origin" "-14.2321 -32 -6.10891"
 	editor
 	{
-		"color" "220 30 220"
+		"color" "0 107 228"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 7500]"
@@ -158,9 +158,9 @@ entity
 	"drawinfastreflection" "0"
 	"effects" "0"
 	"invert_exclusion" "0"
-	"origin" "0 -32 63"
+	"origin" "-14.23 -32 -5.11"
 	"parent_attachment_point" "panel_attach"
-	"parentname" "arm-floor"
+	"parentname" "arm-ceiling"
 	"renderamt" "255"
 	"rendercolor" "255 255 255"
 	"renderfx" "0"
@@ -170,7 +170,7 @@ entity
 	"solidity" "2"
 	"spawnflags" "2"
 	"startdisabled" "0"
-	"targetname" "arm-floor_tile"
+	"targetname" "arm-ceiling_tile"
 	"texframeindex" "0"
 	"vrad_brush_cast_shadows" "0"
 	solid
@@ -179,16 +179,16 @@ entity
 		side
 		{
 			"id" "1"
-			"plane" "(-32 -64 64) (-32 0 64) (32 0 64)"
+			"plane" "(17.7679 -64 -6.10891) (17.7679 0 -6.10891) (-46.2321 0 -6.1089)"
 			vertices_plus
 			{
-				"v" "-32 -64 64"
-				"v" "-32 -0 64"
-				"v" "32 0 64"
-				"v" "32 -64 64"
+				"v" "17.7679 -64 -6.10891"
+				"v" "17.7679 0 -6.10891"
+				"v" "-46.2321 0 -6.1089"
+				"v" "-46.2321 -64 -6.1089"
 			}
 			"material" "DEV/DEV_MEASUREGENERIC01B"
-			"uaxis" "[1 0 0 0] 0.25"
+			"uaxis" "[-1 0 0 -56.9282] 0.25"
 			"vaxis" "[0 -1 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "4"
@@ -197,16 +197,16 @@ entity
 		side
 		{
 			"id" "2"
-			"plane" "(-32 0 62) (-32 -64 62) (32 -64 62)"
+			"plane" "(17.7679 0 -4.10891) (17.7679 -64 -4.10891) (-46.2321 -64 -4.1089)"
 			vertices_plus
 			{
-				"v" "-32 0 62"
-				"v" "-32 -64 62"
-				"v" "32 -64 62"
-				"v" "32 -0 62"
+				"v" "17.7679 0 -4.10891"
+				"v" "17.7679 -64 -4.10891"
+				"v" "-46.2321 -64 -4.1089"
+				"v" "-46.2321 0 -4.1089"
 			}
 			"material" "ANIM_WP/FRAMEWORK/BACKPANELS"
-			"uaxis" "[1 0 0 0] 0.25"
+			"uaxis" "[-1 0 0 -56.9282] 0.25"
 			"vaxis" "[0 -1 0 -256] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
@@ -215,16 +215,16 @@ entity
 		side
 		{
 			"id" "3"
-			"plane" "(-32 -64 62) (-32 0 62) (-32 0 64)"
+			"plane" "(17.7679 -64 -4.10891) (17.7679 0 -4.10891) (17.7679 0 -6.10891)"
 			vertices_plus
 			{
-				"v" "-32 -64 62"
-				"v" "-32 -0 62"
-				"v" "-32 0 64"
-				"v" "-32 -64 64"
+				"v" "17.7679 -64 -4.10891"
+				"v" "17.7679 0 -4.10891"
+				"v" "17.7679 0 -6.10891"
+				"v" "17.7679 -64 -6.10891"
 			}
 			"material" "ANIM_WP/FRAMEWORK/SQUAREBEAMS"
-			"uaxis" "[0 0 1 0] 0.25"
+			"uaxis" "[-0 0 -1 231.564] 0.25"
 			"vaxis" "[0 1 0 256] 0.25"
 			"rotation" "90"
 			"lightmapscale" "16"
@@ -233,16 +233,16 @@ entity
 		side
 		{
 			"id" "4"
-			"plane" "(32 0 62) (32 -64 62) (32 -64 64)"
+			"plane" "(-46.2321 0 -4.1089) (-46.2321 -64 -4.1089) (-46.2321 -64 -6.1089)"
 			vertices_plus
 			{
-				"v" "32 0 62"
-				"v" "32 -64 62"
-				"v" "32 -64 64"
-				"v" "32 -0 64"
+				"v" "-46.2321 0 -4.1089"
+				"v" "-46.2321 -64 -4.1089"
+				"v" "-46.2321 -64 -6.1089"
+				"v" "-46.2321 0 -6.1089"
 			}
 			"material" "ANIM_WP/FRAMEWORK/SQUAREBEAMS"
-			"uaxis" "[0 0 1 0] 0.25"
+			"uaxis" "[-0 0 -1 231.564] 0.25"
 			"vaxis" "[0 1 0 256] 0.25"
 			"rotation" "90"
 			"lightmapscale" "16"
@@ -251,17 +251,17 @@ entity
 		side
 		{
 			"id" "5"
-			"plane" "(-32 0 62) (32 0 62) (32 0 64)"
+			"plane" "(17.7679 0 -4.10891) (-46.2321 0 -4.1089) (-46.2321 0 -6.1089)"
 			vertices_plus
 			{
-				"v" "-32 0 62"
-				"v" "32 0 62"
-				"v" "32 0 64"
-				"v" "-32 0 64"
+				"v" "17.7679 0 -4.10891"
+				"v" "-46.2321 0 -4.1089"
+				"v" "-46.2321 0 -6.1089"
+				"v" "17.7679 0 -6.10891"
 			}
 			"material" "ANIM_WP/FRAMEWORK/SQUAREBEAMS"
-			"uaxis" "[0 0 1 0] 0.25"
-			"vaxis" "[1 0 0 0] 0.25"
+			"uaxis" "[-0 0 -1 231.564] 0.25"
+			"vaxis" "[-1 0 0 -56.9282] 0.25"
 			"rotation" "90"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -269,31 +269,31 @@ entity
 		side
 		{
 			"id" "6"
-			"plane" "(32 -64 62) (-32 -64 62) (-32 -64 64)"
+			"plane" "(-46.2321 -64 -4.1089) (17.7679 -64 -4.10891) (17.7679 -64 -6.10891)"
 			vertices_plus
 			{
-				"v" "32 -64 62"
-				"v" "-32 -64 62"
-				"v" "-32 -64 64"
-				"v" "32 -64 64"
+				"v" "-46.2321 -64 -4.1089"
+				"v" "17.7679 -64 -4.10891"
+				"v" "17.7679 -64 -6.10891"
+				"v" "-46.2321 -64 -6.1089"
 			}
 			"material" "ANIM_WP/FRAMEWORK/SQUAREBEAMS"
-			"uaxis" "[0 0 1 0] 0.25"
-			"vaxis" "[1 0 0 0] 0.25"
+			"uaxis" "[-0 0 -1 231.564] 0.25"
+			"vaxis" "[-1 0 0 -56.9282] 0.25"
 			"rotation" "90"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
 		}
 		editor
 		{
-			"color" "220 30 220"
+			"color" "0 189 150"
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
 	}
 	editor
 	{
-		"color" "220 30 220"
+		"color" "0 189 150"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 -14268]"

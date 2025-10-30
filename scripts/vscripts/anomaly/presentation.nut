@@ -9,7 +9,7 @@
 
 printl("presentation.nut - Executed")
 
-DoIncludeScript("pcapture-lib-4.0beta/PCapture-Lib", getroottable()) //pcapture (give me a reason to use strata trace over pcap)
+DoIncludeScript("pcapture-lib-40beta/PCapture-Lib", getroottable()) //pcapture (give me a reason to use strata trace over pcap)
 
 /*
     TODO (high-prioity todos are marked with *):
@@ -260,10 +260,14 @@ function Predeployer() {   // Finds the specific arm and teleports the ghost arm
     }
 
     local player = GetPlayerEx()
-    local traceResult = TracePlus.FromEyes.Bbox(3000, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
-    
+    local traceResult = TracePlus.FromEyes.Bbox(9999, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
 
-    if (traceResult.DidHit() == false || traceResult.DidHitWorld() == true) { // If we hit worldspawn or didn't hit anything (in 3000 units :skull:)
+    if (!traceResult.DidHit()) { // if we didn't hit anything (in 9999 units :skull:)
+        printl("didn't hit anything")
+        retrieveArm64(true)
+        return
+    }
+    if (traceResult.DidHitWorld()) { // If we hit worldspawn
         printl("not an arm (world)")
         retrieveArm64(true)
         return
@@ -378,15 +382,18 @@ function Predeployer2() {
     
     if (arm64 == null) {
         printl("arm_64 not found!") // in which case I will fire the mapper, it's him who forgor to add the instance.
-        retrieveArm64(true)         // teleports the arm out of bounds
         return
     }
 
     local player = GetPlayerEx()
-    local traceResult = TracePlus.FromEyes.Bbox(3000, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
+    local traceResult = TracePlus.FromEyes.Bbox(9999, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
     
-
-    if (traceResult.DidHit() == false || traceResult.DidHitWorld() == true) {
+    if (!traceResult.DidHit()) { // if we didn't hit anything (in 9999 units :skull:)
+        printl("didn't hit anything")
+        retrieveArm64(true)
+        return
+    }
+    if (traceResult.DidHitWorld()) { // If we hit worldspawn
         printl("not an arm (world)")
         retrieveArm64(true)
         return
@@ -429,8 +436,8 @@ function deployAngleBack() {   // I DONT EVEN NEED 'IF' LMFAO
     printl("Arm angled backwards")
 }
 
-function deployAngled(deployTime = 1) {  // deploy time was nesessary when panels had to close after some time, but when in 1x1 mode, it just a delay before closing tthe previous panel
-    
+function deployAngled(deployTime = 1) {  // deploy time was nesessary when panels had to close after some time,
+                                        // but when in 1x1 mode, it just a delay before closing the previous panel
     local hitEntityName = Predeployer2()
 
     if (arm_angled_front == true) {
@@ -467,41 +474,63 @@ function Find2x2Square(centerArm) {
 
     local neighbors = []
     local centerOrigin = centerArm.GetOrigin()
+    local neighborCycles = 4    // amount of cycles to do
+    local neighborCycleCurrent = 0
 
     // First panel (left-top)
     local ignoredName = "arm_sucker1"
     local neighborOrigin = Vector(centerOrigin.x + 64, centerOrigin.y, centerOrigin.z)
     local neighborProp1 = null
-    while (neighborProp1 = Entities.FindByClassnameWithin(null, "prop_dynamic", neighborOrigin, 1)) {
+
+    while (neighborCycleCurrent != neighborCycles) {
+        neighborProp1 = Entities.FindByClassnameWithin(null, "prop_dynamic", neighborOrigin, 1)
         if (neighborProp1.GetName().find("arm-floor") != null || neighborProp1.GetName().find("arm-ceiling") != null) {
             neighbors.append(neighborProp1)
             printl("Found panel 1: " + neighborProp1.GetName())
             break
         }
     }
+    if (neighborCycleCurrent == neighborCycles - 1) {
+        printl("Didn't find panel 1!")
+        return null
+    }
+    neighborCycleCurrent = 0
 
     // Second panel (right-bottom)
     local ignoredName = "arm_sucker2"
     local neighborOrigin = Vector(centerOrigin.x, centerOrigin.y - 64, centerOrigin.z)
     local neighborProp2 = null
-    while (neighborProp2 = Entities.FindByClassnameWithin(null, "prop_dynamic", neighborOrigin, 1)) {
+
+    while (neighborCycleCurrent != neighborCycles) {
+        neighborProp2 = Entities.FindByClassnameWithin(null, "prop_dynamic", neighborOrigin, 1)
         if (neighborProp2.GetName().find("arm-floor") != null || neighborProp2.GetName().find("arm-ceiling") != null) {
             neighbors.append(neighborProp2)
             printl("Found panel 2: " + neighborProp2.GetName())
             break
         }
     }
+    if (neighborCycleCurrent == neighborCycles - 1) {
+        printl("Didn't find panel 2!")
+        return null
+    }
+    neighborCycleCurrent = 0
 
     // Third panel (right-top)
     local ignoredName = "arm_sucker3"
     local neighborOrigin2 = Vector(neighborOrigin.x + 64, neighborOrigin.y, neighborOrigin.z)
     local neighborProp3 = null
-    while (neighborProp3 = Entities.FindByClassnameWithin(null, "prop_dynamic", neighborOrigin2, 1)) {
+
+    while (neighborCycleCurrent != neighborCycles) {
+        neighborProp3 = Entities.FindByClassnameWithin(null, "prop_dynamic", neighborOrigin2, 1)
         if (neighborProp3.GetName().find("arm-floor") != null || neighborProp3.GetName().find("arm-ceiling") != null) {
             neighbors.append(neighborProp3)
             printl("Found panel 3: " + neighborProp3.GetName())
             break
         }
+    }
+    if (neighborCycleCurrent == neighborCycles - 1) {
+        printl("Didn't find panel 3!")
+        return null
     }
 
     printl("End of searching.")
@@ -510,18 +539,42 @@ function Find2x2Square(centerArm) {
 
 cubes_saved <- 0
 neighbors_globvar <- null
+neighbors_are_floor <- true
 hitEntityName_globvar <- null
 function cubeSucker() { // Opens the cubesucker.
 
+    // the old ones needed to be closed first
+    if (neighbors_globvar != null) {
+        if (neighbors_are_floor = false) {
+            EntFire(hitEntityName_globvar, "setanimation", "90deg_in_cornerfront")
+            EntFire(neighbors_globvar[0].GetName(), "setanimation", "90deg_in_cornerback")
+            EntFire(neighbors_globvar[1].GetName(), "setanimation", "90deg_in_cornerfront")
+            EntFire(neighbors_globvar[2].GetName(), "setanimation", "90deg_in_cornerback")
+        }
+        if (neighbors_are_floor = true) {
+                EntFire(hitEntityName_globvar, "setanimation", "90deg_in_cornerback")
+                EntFire(neighbors_globvar[0].GetName(), "setanimation", "90deg_in_cornerfront")
+                EntFire(neighbors_globvar[1].GetName(), "setanimation", "90deg_in_cornerback")
+                EntFire(neighbors_globvar[2].GetName(), "setanimation", "90deg_in_cornerfront")
+        }
+    }
+
     printl(" === Attempt to open the cubesucker.")
 
-    local traceResult = TracePlus.FromEyes.Bbox(3000, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
-    local hitEntity = traceResult.GetEntity()
-    if (traceResult.DidHit() == false || traceResult.DidHitWorld() == true) {
+    local traceResult = TracePlus.FromEyes.Bbox(9999, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
+
+    if (!traceResult.DidHit()) { // if we didn't hit anything (in 9999 units :skull:)
+        printl("didn't hit anything")
+        retrieveArm64(true)
+        return
+    }
+    if (traceResult.DidHitWorld()) { // If we hit worldspawn
         printl("not an arm (world)")
         retrieveArm64(true)
         return
     }
+
+    local hitEntity = traceResult.GetEntity()
     local hitEntityPrefix = hitEntity.GetNamePrefix()
     if (hitEntityPrefix != "arm-") {
         printl("not an arm (" + hitEntityName + ")")
@@ -534,14 +587,22 @@ function cubeSucker() { // Opens the cubesucker.
     hitEntityName_globvar = hitEntityName
     
     local neighbors = Find2x2Square(hitEntity)
+    neighbors_globvar = neighbors
+
+    if (neighbors == []) {
+        printl("Unable to create the cube sucker!")
+        return
+    }
 
     if (hitEntityYaw < 90) {
+        neighbors_are_floor = true
         EntFire(hitEntityName, "setanimation", "90deg_out_cornerback")
         EntFire(neighbors[0].GetName(), "setanimation", "90deg_out_cornerfront")
         EntFire(neighbors[1].GetName(), "setanimation", "90deg_out_cornerback")
         EntFire(neighbors[2].GetName(), "setanimation", "90deg_out_cornerfront")
     }
     if (hitEntityYaw > 90) {
+        neighbors_are_floor = false
         EntFire(hitEntityName, "setanimation", "90deg_out_cornerfront")
         EntFire(neighbors[0].GetName(), "setanimation", "90deg_out_cornerback")
         EntFire(neighbors[1].GetName(), "setanimation", "90deg_out_cornerfront")
@@ -550,22 +611,22 @@ function cubeSucker() { // Opens the cubesucker.
 
     if (hitEntityName.find("arm-floor") != null) {
         printl(" === Cubesucker mode: in. Awaiting cube.")
-
-        neighbors_globvar = neighbors
         Entities.FindByName(null, "trigger_sucker").SetOrigin(  Vector(hitEntity.GetOrigin().x, hitEntity.GetOrigin().y, hitEntity.GetOrigin().z - 120) )
         return
     }
     if (hitEntityName.find("arm-ceiling") != null) {
         if (cubes_saved <= 0) {
-            printl(" === Cubesucker mode: out. NOT ENOUGH CUBES!")
+            printl(" === Cubesucker mode: out. /nNOT ENOUGH CUBES!")
 
-            if (hitEntityYaw == 180) {
+            if (hitEntityYaw > 90) {
+                neighbors_are_floor = false
                 EntFire(hitEntityName, "setanimation", "90deg_in_cornerfront", 1.5)
                 EntFire(neighbors[0].GetName(), "setanimation", "90deg_in_cornerback", 1.5)
                 EntFire(neighbors[1].GetName(), "setanimation", "90deg_in_cornerfront", 1.5)
                 EntFire(neighbors[2].GetName(), "setanimation", "90deg_in_cornerback", 1.5)
             }
-            else if (hitEntityYaw == 0) {
+            else if (hitEntityYaw < 90) {
+                neighbors_are_floor = true
                 EntFire(hitEntityName, "setanimation", "90deg_in_cornerback", 1.5)
                 EntFire(neighbors[0].GetName(), "setanimation", "90deg_in_cornerfront", 1.5)
                 EntFire(neighbors[1].GetName(), "setanimation", "90deg_in_cornerback", 1.5)
@@ -573,20 +634,20 @@ function cubeSucker() { // Opens the cubesucker.
             }
             return
         }
-        printl(" === Cubesucker mode: out. Dispencing cube.")
+        printl(" === Cubesucker mode: out. \nDispencing cube.")
 
         local cubeMaker = Entities.FindByClassname(null, "env_entity_maker")    
         local cubeNewOrigin = Vector(hitEntity.GetOrigin().x, hitEntity.GetOrigin().y, hitEntity.GetOrigin().z + 200)
         cubeMaker.SpawnEntityAtLocation(cubeNewOrigin, Vector(0, 0, 0))
         cubes_saved--
 
-        if (hitEntityYaw == 180) {
+        if (hitEntityYaw > 90) {
             EntFire(hitEntityName, "setanimation", "90deg_in_cornerfront", 2)
             EntFire(neighbors[0].GetName(), "setanimation", "90deg_in_cornerback", 2)
             EntFire(neighbors[1].GetName(), "setanimation", "90deg_in_cornerfront", 2)
             EntFire(neighbors[2].GetName(), "setanimation", "90deg_in_cornerback", 2)
         }
-        else if (hitEntityYaw == 0) {
+        else if (hitEntityYaw < 90) {
             EntFire(hitEntityName, "setanimation", "90deg_in_cornerback", 2)
             EntFire(neighbors[0].GetName(), "setanimation", "90deg_in_cornerfront", 2)
             EntFire(neighbors[1].GetName(), "setanimation", "90deg_in_cornerback", 2)
@@ -596,9 +657,21 @@ function cubeSucker() { // Opens the cubesucker.
     }
 }
 
-function cubePresuck() {    // teleports 'ghost' arms (some catchers are missing for optimisation)
+function cubePresuck() {    // teleports the 'ghost' arms (some throw-catchers are missing for optimisation)
 
-    local traceResult = TracePlus.FromEyes.Bbox(3000, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
+    local traceResult = TracePlus.FromEyes.Bbox(9999, player, ignoreEntities, ignoreEntities2) // <--- THE TRACE
+
+    if (!traceResult.DidHit()) { // if we didn't hit anything (in 9999 units :skull:)
+        printl("didn't hit anything")
+        retrieveArm64(true)
+        return
+    }
+    if (traceResult.DidHitWorld()) { // If we hit worldspawn
+        printl("not an arm (world)")
+        retrieveArm64(true)
+        return
+    }
+
     local hitEntity = traceResult.GetEntity()
     local hitEntityAngles = hitEntity.GetAngles()
 
@@ -647,6 +720,9 @@ function cubeSucked(cube) {
     EntFire(neighbors_globvar[0].GetName(), "setanimation", "90deg_in_cornerfront")
     EntFire(neighbors_globvar[1].GetName(), "setanimation", "90deg_in_cornerback")
     EntFire(neighbors_globvar[2].GetName(), "setanimation", "90deg_in_cornerfront")
+
+    hitEntityName_globvar = null    // when opening another cube sucker, the previous panels flicker
+    neighbors_globvar = null        // by resetting these I make them flick no more
 }
 
 
@@ -672,10 +748,12 @@ function deployFaith() {
 
     local playerPos = player.GetOrigin()
     local arm_faith = Entities.FindByClassnameWithin(null, "prop_dynamic", playerPos, 50)
-    if (arm_faith == null) return    // NOT FUN
+    local arm_faith_name = arm_faith.GetName()
+    printl("Faith arm: " + arm_faith_name)
+    printl( arm_faith_name.find("arm-") ) // debug
+    if ( arm_faith_name.find("arm-") == null ) return
 
-    EntFire(arm_faith.GetName(), "setanimation", "64_in_straight")
-    printl("Faith arm: " + arm_faith.GetName())
+    EntFire(arm_faith_name, "setanimation", "64_in_straight")
 
     local catapult = TeleportCatapult()
     EntFireByHandle(catapult, "Enable")
@@ -780,3 +858,4 @@ function setGhosting(ghosting) {   // Toggles the ghost arm (as well as the lag 
     }
 }
 
+function vectorToString(victor) return (victor.x + " " + victor.y + " " + victor.z)
