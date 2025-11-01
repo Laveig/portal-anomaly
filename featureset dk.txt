@@ -1,0 +1,87 @@
+V1.1
+	1.0 - major update to the doc (new section, new mechanics / ideas, etc)
+	0.1 - minor update to the doc (fixed mistakes, reverted mechanics / ideas, small updates, etc)
+
+IMPORTANT NOTE: Panel activation highly depends on how much the player has `explored` (due to visleafs), and the panel amount in the map.
+		EXAMPLE:
+			In _example_chamber_.vmf, if the player doesn't move far from the spawn, they would only be able to activate panels very close to them.
+			If the player has `explored` the map (entered all the visleafs), the player can activate any panel in their sight (The max length on that map - 1920 units)
+			The average maximum practical distance in that map is ~1000 units, even if code-wise it is set to 9999 units.
+
+Basic mechanics:
+	Move Up:
+		Move 32 	= arm panel moves half a panel / 32 units upwards. 	
+		Move 64 	= arm panel moves 1 panel / 64 units upwards.		== Will be considered as a default location for Move Up panels, defined as Default
+		Move 128 	= arm panel moves 2 panels / 128 units upwards.		
+		Move 192	= arm panel moves 3 panels / 192 units upwards.		== DOESN'T EXIST AS OF 01.11.2025
+		Move 224 	= arm panel moves 3.5 panels / 224 units upwards (as of 01.11.2025, this is a really janky mechanic. Player can hardly move upwards with it, and the panel visually detaches from the arm.)
+	
+	Move Angled:
+		Move Angled Front  	= arm panel moves to the direction of +X axis (according to the _example_chamber_.vmf). The side however depends on which direction the arm panel model has been moved in Hammer.	Will be considered as a default location for Move Side panels, defined as Default Side.
+		Move Angled Back			= arm panel moves to the direction of -X axis (according to the _example_chamber_.vmf). The side however depends on which direction the arm panel model has been moved in Hammer.	
+
+		Cubesucker / Cubesaver	= saves a cube / prop thrown into the floor variant, and loads back the cube / prop from the ceiling variant. Does not do anything when pointing at walls.	
+
+		Faithpanel				= arm panel that launches the player into a direction they are looking at, and then immediately retracts. Maximum achievable height from a single panel - >256 units (Can stop the player or even make them stuck if using too much of it. Can also be used as a speedrunning mechanic.)
+
+Instructions:	
+	Move Up:
+		Move 32 + Up Arrow == Move 64 (Default)
+		Move 64 (Default) + Up Arrow == Move 128
+		Move 128 + Up Arrow == Move 224
+		Move 224 + Down Arrow == Move 128
+		Move 128 + Down Arrow == Move 64 (Default)
+		Move 64 + Down Arrow == Move 32
+	
+	Move Angled:
+		[Any Move Up position] + Right Arrow == [Last saved Move Angled position. By default - Move Angled Front (Default Side)]
+		Move Angled Front (Default Side) + Down Arrow == Move Angled Back
+		Move Angled Back + Up Arrow == Move Angled Front (Default Side)
+		Move Angled Front, OR Move Angled Back + Left Arrow == [Last saved Move Up position. By default - Move 64]
+		Move Angled Front, OR Move Angled Back + Right Arrow == Cubesucker
+		Cubesucker + Right Arrow == Faithpanel
+		Faithpanel + Left Arrow == Cubesucker / Cubesaver
+		Cubesucker + Left Arrow == [Last saved Move Angled position. By default - Move Angled Front (Default Side)]
+
+Possible puzzle mechanics:
+	Player Raising (If Move Up will be activated below the player, they will move upwards.)
+	
+	Cube Saving (Cubesucker, requires a minimum of 4 floor panels and ceiling panels positioned in a square formation)
+		No Cubesaving (No area that supports the Cubesucker)
+	
+	Remote Cube Recycle (Ceiling Cubesucker pointed at a goo, destroying the saved cube)
+
+	Parkour	(QUICK REACTION TIME REQUIRED DUE TO PANELS RETRACTING QUICKLY WHEN ACTIVATED MULTIPLE PANELS)
+		Wall Climbing   = Activating a wall panel where the player is standing and quickly jumping) (UNRELIABLE DUE TO THE PLAYER HAVING A HIGH CHANCE OF BEING KNOCKED OFF) 
+			Panel Bridges (If a wall arm has a panel bigger than the default 64x64 unit panel, it can work as a reliable bridge)
+		Jumping on Raised Platforms
+
+	Cube Catapults
+		Vertical Cube Catapult (Move Up mechanic raised below the cube, capatulting it up) (UNRELIABLE DUE TO SOURCE PHYSICS)
+		Horizontal Cube Catapult (Move Side mechanic raised on a cube's side, catapulting it sideways) (MORE RELIABLE, BUT STILL SOURCE PHYSICS)
+			HCC Button Cube Removing (HCC performed on a cube with an activated button, which will remove the cube from it)
+		VCC Then HCC	 (VCC IS UNRELIABLE DUE TO SOURCE PHYSICS)
+
+	Barricade (Panel raised to block something. I.e. Bridge, Funnel, Laser, Cube Falling, etc.)
+	
+	Player Catapult / Faithpanel (Use the Faithpanel to jump across a relatively small yet considerable distance. For example: a small gap, a higher platform, etc.)
+	
+Proposed Ideas (3 status types - Considering, Approved, Declined):
+	IF MOVE SIDE WILL BE UPDATED TO INCLUDE ITS EXTENSION VARIANTS, LIKE THE MOVE UP VARIANTS:		[CONSIDERING]
+		Extended Panel Platform (Walkable platforms in mid-air from the walls, less reliance on the floor panels.)
+		
+		Extended Barricade (Can stop things in mid-air and far away from any surface.)
+		
+	IF PANELS WILL BE UPDATED TO INCLUDE PANEL REVERSAL:		[APPROVED]
+		Panel Reversal (Retract the existing already extended panels in the map. Can increase the speed of a fling if an extended panel at the bottom is reversed, and more.)
+	
+	Move Angled update to also include the Y axis directions could increase the puzzle potential.    [DECLINED (no animation for that)]
+	
+	Move Diagonal is an idea. The need of it is however unknown as of now:			[CONSIDERING]
+		Falling cubes with a Diagonal panel underneath can make the cube fall into a desired location
+		
+		Diagonal panel with gel on it.
+		
+		Diagonal lasers, bridges, funnels and others.
+	
+	The current controls are a bit confusing and need to be changed. [APPROVED]
